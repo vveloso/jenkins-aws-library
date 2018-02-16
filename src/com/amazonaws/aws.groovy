@@ -1,4 +1,4 @@
-package cloud.aws
+package cloud.aws;
 
 @Grab('com.amazonaws:aws-java-sdk:1.11.277')
 
@@ -8,22 +8,22 @@ import com.amazonaws.regions.Regions;
 import com.amazonaws.auth.*;
 import com.amazonaws.waiters.*;
 
-class ECS {
+public class ECS {
 
 	private AmazonECS client;
 
-	ECS(String key, String secret) {
+	public ECS(String key, String secret) {
 		this(Regions.US_EAST_1, key, secret);
 	}
 
-	ECS(Regions region, String key, String secret) {
+	public ECS(Regions region, String key, String secret) {
 		client = AmazonECSClientBuilder.standard()
 			.withRegion(region)
 			.withCredentials(new AWSStaticCredentialsProvider(new BasicAWSCredentials(key, secret)))
 			.build();
 	}
 	
-	String runTask(String cluster, String subnet, String securityGroup, String task) {
+	public String runTask(String cluster, String subnet, String securityGroup, String task) {
 		AwsVpcConfiguration vpcConfig = new AwsVpcConfiguration()
 			.withAssignPublicIp(AssignPublicIp.ENABLED)
 			.withSubnets(subnet)
@@ -43,7 +43,7 @@ class ECS {
 		return task.getTaskArn();
 	}
 
-	String lookupTaskIp(String cluster, String taskArn) {
+	public String lookupTaskIp(String cluster, String taskArn) {
 		DescribeTasksRequest describeTaskRequest = new DescribeTasksRequest()
 				.withCluster(cluster)
 				.withTasks(taskArn);
@@ -56,14 +56,14 @@ class ECS {
 			.getValue();                    
 	}
 
-	def stopTask(String cluster, String taskArn, String reason) {
+	public def stopTask(String cluster, String taskArn, String reason) {
 		client.stopTask(new StopTaskRequest()
 			.withCluster(testTaskCluster)
 			.withTask(testTaskArn)
 			.withReason(reason));
 	}
 
-	def shutdown() {
+	public def shutdown() {
 		client.shutdown();
 	}
 	
