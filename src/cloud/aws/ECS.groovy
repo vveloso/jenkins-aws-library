@@ -38,9 +38,7 @@ public class ECS {
 
 		RunTaskResult response = client.runTask(runRequest);
 		
-		Task task = response.getTasks().get(0);
-
-		return task.getTaskArn();
+		return response.getTasks().get(0).getTaskArn();
 	}
 
 	public String lookupTaskIp(String cluster, String taskArn) {
