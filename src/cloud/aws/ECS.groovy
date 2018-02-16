@@ -1,4 +1,4 @@
-package com.amazonaws;
+package cloud.aws;
 
 @Grab('com.amazonaws:aws-java-sdk:1.11.277')
 
