@@ -56,8 +56,8 @@ public class ECS {
 
 	public def stopTask(String cluster, String taskArn, String reason) {
 		client.stopTask(new StopTaskRequest()
-			.withCluster(testTaskCluster)
-			.withTask(testTaskArn)
+			.withCluster(cluster)
+			.withTask(taskArn)
 			.withReason(reason));
 	}
 
